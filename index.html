@@ -1448,7 +1448,7 @@ HP：https://www.wits.com/jp/
     </div>
     <div class="numbers-grid">
       <div class="number-card fade-in" style="transition-delay:.1s">
-        <div class="big"><span class="count-up" data-target="2003">0</span></div>
+        <div class="big"><span class="count-up" data-target="2003">0</span><sub>年</sub></div>
         <div class="num-label">創業年</div>
         <div class="num-desc">20年以上の実績</div>
       </div>
@@ -1791,10 +1791,10 @@ HP：https://www.wits.com/jp/
     const timer = setInterval(() => {
       current += increment;
       if (current >= target) {
-        el.textContent = isFloat ? target.toFixed(1) : target.toLocaleString();
-        clearInterval(timer);
-      } else {
-        el.textContent = isFloat ? current.toFixed(1) : Math.floor(current).toLocaleString();
+        el.textContent = isFloat ? target.toFixed(1) : target;
+    } else {
+      el.textContent = isFloat ? current.toFixed(1) : Math.floor(current);
+
       }
     }, step);
   }
