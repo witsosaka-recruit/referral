@@ -1,0 +1,1861 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>リファラル採用 | ウィツ大阪</title>
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green:  #8aba29;
+      --navy:   #004d69;
+      --sky:    #9bc9d6;
+      --white:  #ffffff;
+      --light:  #f4f9f0;
+      --gray:   #f0f4f8;
+      --text:   #1a2e3b;
+      --muted:  #5a7a8a;
+      --radius: 16px;
+      --shadow: 0 8px 32px rgba(0,77,105,.10);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--gray); }
+    ::-webkit-scrollbar-thumb { background: var(--sky); border-radius: 99px; }
+
+    /* ===== ANIMATION CLASSES ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-in-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .fade-in-left.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .fade-in-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .fade-in-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ===== HEADER / NAV ===== */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(155,201,214,.3);
+      padding: 0 24px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: box-shadow .3s;
+    }
+    header.scrolled { box-shadow: var(--shadow); }
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: .05em;
+    }
+    .logo span { color: var(--green); }
+    nav { display: flex; gap: 8px; align-items: center; }
+    nav a {
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--navy);
+      padding: 6px 12px;
+      border-radius: 99px;
+      transition: background .2s, color .2s;
+    }
+    nav a:hover { background: var(--sky); color: var(--white); }
+    .nav-cta {
+      background: var(--green);
+      color: var(--white) !important;
+      padding: 8px 18px !important;
+    }
+    .nav-cta:hover { background: #6d9420 !important; }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--navy);
+      border-radius: 99px;
+      transition: .3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: var(--white);
+      padding: 16px 24px 24px;
+      z-index: 99;
+      border-bottom: 1px solid var(--sky);
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      display: block;
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      font-weight: 600;
+      color: var(--navy);
+      transition: background .2s;
+    }
+    .mobile-nav a:hover { background: var(--light); }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #e8f5d4 0%, #d0eaf5 50%, #f0f9ff 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: .12;
+      animation: float 6s ease-in-out infinite;
+    }
+    .hero-bg-circle:nth-child(1) {
+      width: 400px; height: 400px;
+      background: var(--green);
+      top: -100px; right: -100px;
+    }
+    .hero-bg-circle:nth-child(2) {
+      width: 300px; height: 300px;
+      background: var(--navy);
+      bottom: -80px; left: -80px;
+      animation-delay: -3s;
+    }
+    .hero-bg-circle:nth-child(3) {
+      width: 200px; height: 200px;
+      background: var(--sky);
+      top: 50%; left: 40%;
+      animation-delay: -1.5s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-20px) scale(1.05); }
+    }
+    .hero-inner {
+      max-width: 760px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--green);
+      color: var(--white);
+      font-size: .8rem;
+      font-weight: 700;
+      padding: 6px 18px;
+      border-radius: 99px;
+      margin-bottom: 24px;
+      letter-spacing: .1em;
+      animation: pulse-badge 2s ease-in-out infinite;
+    }
+    @keyframes pulse-badge {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(138,186,41,.4); }
+      50% { box-shadow: 0 0 0 10px rgba(138,186,41,0); }
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--green);
+      position: relative;
+      display: inline-block;
+    }
+    .hero h1 em::after {
+      content: '';
+      position: absolute;
+      bottom: 2px; left: 0; right: 0;
+      height: 4px;
+      background: var(--sky);
+      border-radius: 99px;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      margin-bottom: 36px;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,.15); }
+    .btn-primary { background: var(--green); color: var(--white); }
+    .btn-secondary { background: var(--white); color: var(--navy); border: 2px solid var(--navy); }
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      margin-top: 48px;
+      flex-wrap: wrap;
+    }
+    .hero-stat {
+      text-align: center;
+    }
+    .hero-stat .num {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--navy);
+    }
+    .hero-stat .num span { color: var(--green); font-size: 1.2rem; }
+    .hero-stat .label { font-size: .8rem; color: var(--muted); margin-top: 2px; }
+
+    /* ===== SECTIONS COMMON ===== */
+    section { padding: 80px 24px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      display: inline-block;
+      background: var(--light);
+      color: var(--green);
+      font-size: .78rem;
+      font-weight: 800;
+      padding: 4px 16px;
+      border-radius: 99px;
+      margin-bottom: 12px;
+      letter-spacing: .12em;
+      border: 1px solid var(--green);
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 900;
+      color: var(--navy);
+      margin-bottom: 12px;
+    }
+    .section-sub {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 48px;
+      max-width: 600px;
+    }
+    .divider {
+      width: 48px;
+      height: 4px;
+      background: var(--green);
+      border-radius: 99px;
+      margin: 16px 0 48px;
+    }
+
+    /* ===== WHAT IS REFERRAL ===== */
+    .what-section { background: var(--light); }
+    .what-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .what-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      border: 1px solid rgba(155,201,214,.4);
+      transition: transform .3s, box-shadow .3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .what-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--green);
+      border-radius: var(--radius) var(--radius) 0 0;
+      transform: scaleX(0);
+      transition: transform .3s;
+    }
+    .what-card:hover::before { transform: scaleX(1); }
+    .what-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .what-icon {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      background: var(--light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 16px;
+    }
+    .what-card h3 { font-size: 1.1rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+    .what-card p { font-size: .9rem; color: var(--muted); line-height: 1.7; }
+
+    /* ===== WHO TO REFER ===== */
+    .who-section { background: var(--white); }
+    .who-intro-box {
+      background: linear-gradient(135deg, var(--navy) 0%, #006a8a 100%);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-bottom: 36px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .who-intro-box .icon { font-size: 2rem; flex-shrink: 0; margin-top: 2px; }
+    .who-intro-box p { color: rgba(255,255,255,.9); font-size: .95rem; line-height: 1.8; }
+    .who-intro-box strong { color: var(--green); }
+    .who-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    .who-card {
+      background: var(--light);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      border: 2px solid transparent;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .who-card:hover {
+      border-color: var(--green);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+    .who-card-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      width: 48px; height: 48px;
+      background: var(--white);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .who-card-text h4 { font-size: 1rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .who-card-text p  { font-size: .85rem; color: var(--muted); line-height: 1.6; }
+    .who-notice {
+      background: #fff8e0;
+      border: 1px solid #f5d060;
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .who-notice .ni { font-size: 1.4rem; flex-shrink: 0; }
+    .who-notice p { font-size: .88rem; color: #7a5a00; line-height: 1.7; }
+    .who-notice strong { color: #5a4000; }
+
+    /* ===== JOBS ===== */
+    .jobs-section { background: var(--gray); }
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .job-card {
+      border: 2px solid transparent;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px;
+      cursor: pointer;
+      transition: border-color .3s, box-shadow .3s, transform .3s;
+      position: relative;
+    }
+    .job-card:hover {
+      border-color: var(--green);
+      box-shadow: var(--shadow);
+      transform: translateY(-4px);
+    }
+    .job-tag {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 99px;
+      margin-bottom: 12px;
+    }
+    .tag-green { background: #e8f5d4; color: var(--green); }
+    .tag-navy  { background: #d0e6ef; color: var(--navy); }
+    .tag-sky   { background: #e0f2f8; color: #006a8a; }
+    .job-card h3 { font-size: 1.1rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+    .job-card p  { font-size: .88rem; color: var(--muted); margin-bottom: 16px; }
+    .job-meta {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .job-meta span {
+      font-size: .78rem;
+      color: var(--navy);
+      background: var(--gray);
+      padding: 4px 12px;
+      border-radius: 99px;
+      border: 1px solid var(--sky);
+    }
+    .job-arrow {
+      position: absolute;
+      top: 28px; right: 28px;
+      width: 32px; height: 32px;
+      background: var(--light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--green);
+      font-size: 1rem;
+      transition: background .2s, color .2s;
+    }
+    .job-card:hover .job-arrow { background: var(--green); color: var(--white); }
+    a.job-card { display: block; text-decoration: none; color: inherit; }
+
+    /* ===== FLOW ===== */
+    .flow-section { background: linear-gradient(135deg, var(--navy) 0%, #006a8a 100%); }
+    .flow-section .section-label { background: rgba(255,255,255,.1); color: var(--sky); border-color: var(--sky); }
+    .flow-section .section-title { color: var(--white); }
+    .flow-section .section-sub { color: var(--sky); }
+    .flow-section .divider { background: var(--green); }
+    .flow-steps {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    .flow-step {
+      flex: 1;
+      min-width: 160px;
+      text-align: center;
+      padding: 32px 16px;
+      position: relative;
+    }
+    .flow-step::after {
+      content: '›';
+      position: absolute;
+      right: -8px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: var(--sky);
+      opacity: .6;
+    }
+    .flow-step:last-child::after { display: none; }
+    .step-num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--green);
+      color: var(--white);
+      font-size: 1.4rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      position: relative;
+      transition: transform .3s;
+    }
+    .flow-step:hover .step-num { transform: scale(1.15); }
+    .step-icon {
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+    .flow-step h3 { font-size: 1rem; font-weight: 800; color: var(--white); margin-bottom: 6px; }
+    .flow-step p { font-size: .82rem; color: var(--sky); line-height: 1.5; }
+
+    /* ===== SCHEDULE ===== */
+    .schedule-section { background: var(--gray); }
+    .schedule-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 8px;
+    }
+    .schedule-table thead tr th {
+      background: var(--navy);
+      color: var(--white);
+      padding: 14px 20px;
+      text-align: left;
+      font-size: .9rem;
+      font-weight: 700;
+    }
+    .schedule-table thead tr th:first-child { border-radius: 12px 0 0 12px; }
+    .schedule-table thead tr th:last-child  { border-radius: 0 12px 12px 0; }
+    .schedule-table tbody tr {
+      background: var(--white);
+      transition: box-shadow .2s;
+    }
+    .schedule-table tbody tr:hover { box-shadow: var(--shadow); }
+    .schedule-table tbody tr td {
+      padding: 16px 20px;
+      font-size: .9rem;
+    }
+    .schedule-table tbody tr td:first-child {
+      border-radius: 12px 0 0 12px;
+      font-weight: 700;
+      color: var(--navy);
+      width: 100px;
+    }
+    .schedule-table tbody tr td:last-child { border-radius: 0 12px 12px 0; }
+    .step-tag {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 99px;
+      font-size: .75rem;
+      font-weight: 700;
+    }
+    .step-tag.green  { background: #e8f5d4; color: var(--green); }
+    .step-tag.blue   { background: #d0e6ef; color: var(--navy); }
+    .step-tag.sky    { background: #e0f2f8; color: #006a8a; }
+    .step-tag.orange { background: #fff3e0; color: #e07800; }
+
+    /* ===== MESSAGE ===== */
+    .message-section { background: var(--light); }
+    .msg-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    .msg-tab-btn {
+      padding: 10px 22px;
+      border-radius: 99px;
+      border: 2px solid var(--sky);
+      background: var(--white);
+      color: var(--navy);
+      font-size: .88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s, color .2s, border-color .2s, transform .2s;
+    }
+    .msg-tab-btn:hover { transform: translateY(-2px); }
+    .msg-tab-btn.active {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+    }
+    .msg-panel { display: none; }
+    .msg-panel.active { display: block; }
+    .message-box {
+      background: var(--white);
+      border: 2px solid var(--sky);
+      border-radius: var(--radius);
+      padding: 40px;
+      position: relative;
+    }
+    .message-label {
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 16px;
+      letter-spacing: .1em;
+    }
+    .message-body {
+      font-size: .95rem;
+      line-height: 2;
+      color: var(--text);
+      white-space: pre-line;
+    }
+    .message-body strong { color: var(--navy); }
+    .message-copy-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 24px;
+      padding: 10px 24px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      border-radius: 99px;
+      font-size: .88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .message-copy-btn:hover { background: #006a8a; transform: translateY(-2px); }
+    .msg-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--light);
+      border: 1px solid var(--green);
+      border-radius: 99px;
+      padding: 4px 14px;
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+
+    /* ===== NUMBERS ===== */
+    .numbers-section { background: var(--white); }
+    .numbers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+    .number-card {
+      background: linear-gradient(135deg, var(--navy) 0%, #006a8a 100%);
+      border-radius: var(--radius);
+      padding: 32px 20px;
+      text-align: center;
+      color: var(--white);
+      transition: transform .3s;
+    }
+    .number-card:hover { transform: translateY(-6px); }
+    .number-card .big {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .number-card .big sub { font-size: 1.2rem; font-weight: 700; }
+    .number-card .num-label { font-size: .85rem; color: var(--sky); }
+    .number-card .num-desc { font-size: .78rem; color: rgba(255,255,255,.6); margin-top: 8px; }
+
+    /* ===== EMPLOYEES ===== */
+    .employees-section { background: var(--gray); }
+    .emp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+    }
+    .emp-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: transform .3s, box-shadow .3s;
+      border: 1px solid rgba(155,201,214,.3);
+    }
+    .emp-card:hover { transform: translateY(-8px); box-shadow: var(--shadow); }
+    .emp-photo {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .emp-photo::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 40px;
+      background: var(--white);
+      clip-path: ellipse(60% 100% at 50% 100%);
+    }
+    .c1 { background: linear-gradient(135deg, #d4edda, #b8ddc8); }
+    .c2 { background: linear-gradient(135deg, #d0e6ef, #a8d4e6); }
+    .c3 { background: linear-gradient(135deg, #e8f5d4, #c8e89a); }
+    .c4 { background: linear-gradient(135deg, #d0e6ef, #9bc9d6); }
+    .emp-body { padding: 20px 24px 24px; }
+    .emp-body .dept {
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 4px;
+      letter-spacing: .08em;
+    }
+    .emp-body h3 { font-size: 1.1rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .emp-body .year { font-size: .78rem; color: var(--muted); margin-bottom: 12px; }
+    .emp-body p { font-size: .88rem; color: var(--muted); line-height: 1.7; }
+    .emp-quote {
+      background: var(--light);
+      border-left: 3px solid var(--green);
+      padding: 10px 14px;
+      margin-top: 12px;
+      border-radius: 0 8px 8px 0;
+      font-size: .85rem;
+      color: var(--text);
+      font-style: italic;
+    }
+
+    /* ===== DEPARTMENTS ===== */
+    .dept-section { background: var(--white); }
+    .dept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .dept-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(155,201,214,.3);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .dept-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    a.dept-card { display: block; text-decoration: none; color: inherit; }
+    .dept-header {
+      padding: 28px 28px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .dept-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .di1 { background: #e8f5d4; }
+    .di2 { background: #d0e6ef; }
+    .di3 { background: #fff3e0; }
+    .di4 { background: #f3e5f5; }
+    .di5 { background: #e0f7fa; }
+    .dept-header-text h3 { font-size: 1.05rem; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+    .dept-header-text .sub { font-size: .8rem; color: var(--muted); }
+    .dept-header-meta {
+      margin-left: auto;
+      flex-shrink: 0;
+      text-align: right;
+    }
+    .dept-size {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--white);
+      border: 1px solid var(--sky);
+      border-radius: 99px;
+      padding: 4px 12px;
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--navy);
+      white-space: nowrap;
+    }
+    .dept-body {
+      padding: 0 28px 28px;
+    }
+    .dept-body p { font-size: .9rem; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+    .dept-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .dept-tags span {
+      font-size: .75rem;
+      padding: 3px 12px;
+      border-radius: 99px;
+      background: var(--gray);
+      color: var(--navy);
+      font-weight: 600;
+    }
+    .dept-fit {
+      background: var(--light);
+      border-left: 3px solid var(--green);
+      border-radius: 0 10px 10px 0;
+      padding: 12px 16px;
+    }
+    .dept-fit .fit-label {
+      font-size: .72rem;
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: .08em;
+      margin-bottom: 6px;
+    }
+    .dept-fit ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .dept-fit ul li {
+      font-size: .83rem;
+      color: var(--text);
+      padding-left: 16px;
+      position: relative;
+    }
+    .dept-fit ul li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* ===== CTA SECTION ===== */
+    .cta-section { background: linear-gradient(135deg, #e8f5d4 0%, #d0eaf5 100%); }
+    .cta-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 24px;
+      padding: 56px 48px;
+      box-shadow: 0 20px 60px rgba(0,77,105,.12);
+      text-align: center;
+    }
+    .cta-wrap .cta-icon { font-size: 3.5rem; margin-bottom: 20px; }
+    .cta-wrap h2 { font-size: 1.8rem; font-weight: 900; color: var(--navy); margin-bottom: 12px; }
+    .cta-wrap p { font-size: .95rem; color: var(--muted); line-height: 1.8; margin-bottom: 32px; }
+    .cta-wrap .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 48px;
+      background: var(--green);
+      color: var(--white);
+      border-radius: 99px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: background .2s, transform .2s, box-shadow .2s;
+      margin-bottom: 20px;
+    }
+    .cta-wrap .cta-btn:hover {
+      background: #6d9420;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(138,186,41,.45);
+    }
+    .cta-notice { font-size: .8rem; color: var(--muted); }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--navy);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: 99px;
+      font-size: .9rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity .4s, transform .4s;
+      z-index: 999;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,.7);
+      padding: 48px 24px 32px;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      margin-bottom: 24px;
+    }
+    .footer-logo { font-size: 1.3rem; font-weight: 900; color: var(--white); }
+    .footer-logo span { color: var(--green); }
+    .footer-logo p { font-size: .82rem; color: rgba(255,255,255,.5); margin-top: 4px; font-weight: 400; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 16px; }
+    .footer-links a { font-size: .85rem; color: var(--sky); transition: color .2s; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { text-align: center; font-size: .78rem; }
+
+    /* ===== BACK TO TOP ===== */
+    #back-top {
+      position: fixed;
+      bottom: 32px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      background: var(--green);
+      color: var(--white);
+      border: none;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(138,186,41,.5);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .3s, transform .3s;
+      z-index: 90;
+    }
+    #back-top.show { opacity: 1; transform: translateY(0); }
+    #back-top:hover { background: #6d9420; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 60px 16px; }
+      .flow-steps { flex-direction: column; }
+      .flow-step::after { display: none; }
+      .schedule-table { font-size: .8rem; }
+      .schedule-table thead tr th,
+      .schedule-table tbody tr td { padding: 10px 12px; }
+      .message-box { padding: 28px 20px; }
+      .footer-top { flex-direction: column; }
+      .hero-stats { gap: 20px; }
+      .cta-wrap { padding: 36px 24px; }
+      .who-intro-box { flex-direction: column; }
+      .dept-header { flex-wrap: wrap; }
+      .dept-header-meta { margin-left: 0; text-align: left; }
+    }
+    @media (max-width: 480px) {
+      .numbers-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ===== PROGRESS BAR ===== */
+    #progress {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      height: 3px;
+      background: var(--green);
+      width: 0%;
+      z-index: 101;
+      transition: width .1s;
+    }
+
+    /* ===== COUNTER ANIMATION ===== */
+    .count-up { display: inline-block; }
+  </style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div id="progress"></div>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="logo">WITS <span>Osaka</span> <span style="font-size:.7rem;color:var(--muted);font-weight:600;">リファラル採用</span></div>
+  <nav>
+    <a href="#what">リファラルとは</a>
+    <a href="#who">紹介できる人</a>
+    <a href="#jobs">募集職種</a>
+    <a href="#flow">紹介の流れ</a>
+    <a href="#numbers">数字でわかるウィツ</a>
+    <a href="https://www.recruit.persona-ats.com/referral/?client=wits" class="nav-cta" target="_blank">✉ 今すぐ紹介する</a>
+  </nav>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#what" onclick="closeMobileNav()">リファラルとは？</a>
+  <a href="#who" onclick="closeMobileNav()">どんな人を紹介すれば？</a>
+  <a href="#jobs" onclick="closeMobileNav()">募集職種一覧</a>
+  <a href="#flow" onclick="closeMobileNav()">紹介の流れ</a>
+  <a href="#schedule" onclick="closeMobileNav()">選考スケジュール</a>
+  <a href="#message" onclick="closeMobileNav()">メッセージ例文</a>
+  <a href="#numbers" onclick="closeMobileNav()">数字でわかるウィツ</a>
+  <a href="#employees" onclick="closeMobileNav()">社員紹介</a>
+  <a href="#depts" onclick="closeMobileNav()">部署紹介</a>
+  <a href="https://www.recruit.persona-ats.com/referral/?client=wits" onclick="closeMobileNav()" style="background:var(--green);color:#fff;text-align:center;" target="_blank">✉ 今すぐ紹介する</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">🌟 REFERRAL RECRUITMENT 2026</div>
+    <h1>あなたの紹介が、<br><em>最高のチーム</em>をつくる</h1>
+    <p>ウィツ大阪では、社員のみなさんからの紹介採用を積極的に推進しています。信頼できる人を、一緒に働く仲間へ。</p>
+    <div class="hero-btns">
+      <a href="https://www.recruit.persona-ats.com/referral/?client=wits" target="_blank" class="btn btn-primary">✉ 今すぐ紹介する</a>
+      <a href="#what" class="btn btn-secondary">詳しく見る →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num"><span class="count-up" data-target="42">0</span><span>%</span></div>
+        <div class="label">リファラル採用比率</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num"><span class="count-up" data-target="40">0</span><span>万円</span></div>
+        <div class="label">社員紹介手当</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num"><span class="count-up" data-target="89">0</span><span>%</span></div>
+        <div class="label">定着率（3年後）</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IS REFERRAL -->
+<section class="what-section" id="what">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">WHAT IS REFERRAL</div>
+      <h2 class="section-title">リファラル採用とは？</h2>
+      <div class="divider"></div>
+      <p class="section-sub">リファラル採用とは、社員のみなさんが自分の知人・友人をウィツ大阪に紹介する採用手法です。求人広告や転職サイトに頼らず、信頼でつながった採用を実現します。</p>
+    </div>
+    <div class="what-grid">
+      <div class="what-card fade-in" style="transition-delay:.1s">
+        <div class="what-icon">🤝</div>
+        <h3>信頼でつながる採用</h3>
+        <p>すでに社風を知っているあなたが紹介するため、入社後のミスマッチが少なく、お互いに安心して働けます。</p>
+      </div>
+      <div class="what-card fade-in" style="transition-delay:.2s">
+        <div class="what-icon">💰</div>
+        <h3>社員紹介手当あり</h3>
+        <p>紹介した方が入社・試用期間修了後に、紹介者へ謝礼金をお支払いします。一律40万円。</p>
+      </div>
+      <div class="what-card fade-in" style="transition-delay:.3s">
+        <div class="what-icon">🚀</div>
+        <h3>採用プロセスが速い</h3>
+        <p>選考を簡略化し、通常より早いスケジュールで選考が進みます。紹介者のフォローも可能です。</p>
+      </div>
+      <div class="what-card fade-in" style="transition-delay:.4s">
+        <div class="what-icon">🌱</div>
+        <h3>チームが強くなる</h3>
+        <p>価値観の近い仲間が増えることで、チームの絆が深まり、組織全体のパフォーマンスが向上します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO TO REFER -->
+<section class="who-section" id="who">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">WHO TO REFER</div>
+      <h2 class="section-title">どんな人を紹介すればいい？</h2>
+      <div class="divider"></div>
+      <p class="section-sub">「紹介していいのかな？」と迷ったら、まずはこのページを参考にしてください。ハードルは高くありません。</p>
+    </div>
+
+    <div class="who-intro-box fade-in">
+      <div class="icon">💡</div>
+      <p>紹介はあくまで「この人に話を聞いてほしい」という<strong>入り口のご案内</strong>です。ご紹介いただいた時点で選考が確定するわけではなく、まずはカジュアルな面談からスタートします。「転職を決めていないけど、少し話を聞いてみたい」という方でも大歓迎です。気軽に声をかけてみてください！</p>
+    </div>
+
+    <div class="who-grid">
+      <div class="who-card fade-in" style="transition-delay:.1s">
+        <div class="who-card-icon">💻</div>
+        <div class="who-card-text">
+          <h4>ITエンジニア経験者</h4>
+          <p>Java・C# などの開発経験があり、スキルアップや新しい環境を求めている方。年次・レベル不問。</p>
+        </div>
+      </div>
+      <div class="who-card fade-in" style="transition-delay:.15s">
+        <div class="who-card-icon">🏭</div>
+        <div class="who-card-text">
+          <h4>SAPやERP関連の経験者</h4>
+          <p>SAP / Oracle EBS の導入・開発・運用に携わったことがある方。コンサルタント志向の方も歓迎。</p>
+        </div>
+      </div>
+      <div class="who-card fade-in" style="transition-delay:.2s">
+        <div class="who-card-icon">🔧</div>
+        <div class="who-card-text">
+          <h4>機械・電気系エンジニア</h4>
+          <p>CADや電気制御（PLC・制御盤設計）の経験がある方。ものづくり分野で活躍したい方。</p>
+        </div>
+      </div>
+      <div class="who-card fade-in" style="transition-delay:.25s">
+        <div class="who-card-icon">📈</div>
+        <div class="who-card-text">
+          <h4>法人営業・提案営業の経験者</h4>
+          <p>IT業界にて顧客折衝・提案経験がある方。エンジニアと連携しながら働ける方。</p>
+        </div>
+      </div>
+      <div class="who-card fade-in" style="transition-delay:.3s">
+        <div class="who-card-icon">🌱</div>
+        <div class="who-card-text">
+          <h4>新卒・第二新卒・キャリアチェンジ希望者</h4>
+          <p>社会人経験の有無を問わず、IT業界に興味がある方を幅広く募集しています。未経験からでも挑戦できる環境を用意していますので、ぜひご紹介ください。（未経験者は４月入社限定）</p>
+        </div>
+      </div>
+      <div class="who-card fade-in" style="transition-delay:.35s">
+        <div class="who-card-icon">🤔</div>
+        <div class="who-card-text">
+          <h4>「転職は考えてないけど…」な人も</h4>
+          <p>今すぐ転職する気がなくても OK。まず話を聞くだけでも構いません。紹介フォーム送信＝選考確定ではありません。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="who-notice fade-in">
+      <div class="ni">⚠️</div>
+      <p><strong>ご注意：</strong>紹介フォームの送信は選考の確定ではありません。採用担当から候補者へご連絡の上、まずはカジュアル面談の日程調整を行います。候補者がご辞退された場合も、紹介者への不利益は一切ありません。また、<strong>契約社員・フリーランス・職種未経験者の紹介は社員紹介手当（40万円）の対象外</strong>となりますので、あらかじめご了承ください。</p>
+    </div>
+  </div>
+</section>
+
+<!-- JOBS -->
+<section class="jobs-section" id="jobs">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">OPEN POSITIONS</div>
+      <h2 class="section-title">募集職種</h2>
+      <div class="divider"></div>
+      <p class="section-sub">以下の職種で積極的に採用を進めています。カードをクリックすると求人票を別タブで確認できます。</p>
+    </div>
+    <div class="jobs-grid">
+      <a class="job-card fade-in" style="transition-delay:.1s" href="https://job.persona-ats.com/ja/wits/jobs/87b6bcd6-1b79-4d5e-9854-53a0df4fe993" target="_blank" rel="noopener">
+        <div class="job-arrow">→</div>
+        <div class="job-tag tag-green">エンジニア</div>
+        <h3>開発エンジニア</h3>
+        <p>Java / C# を中心としたバックエンド開発。上流工程～下流工程まで一貫して携わることができます。</p>
+        <div class="job-meta">
+          <span>🏢 大阪事業本部</span>
+          <span>💼 正社員</span>
+          <span>🔄 リモート可</span>
+        </div>
+      </a>
+      <a class="job-card fade-in" style="transition-delay:.2s" href="https://job.persona-ats.com/ja/wits/jobs/b262a1b3-6608-4cda-a270-4217ccb6a194" target="_blank" rel="noopener">
+        <div class="job-arrow">→</div>
+        <div class="job-tag tag-green">エンジニア</div>
+        <h3>PMPL</h3>
+        <p>PMPL候補として、顧客折衝・チーム管理・品質管理などマネジメント領域に挑戦可能。技術とマネジメント両面でキャリアを伸ばせます。</p>
+        <div class="job-meta">
+          <span>🏢 大阪事業本部</span>
+          <span>💼 正社員</span>
+          <span>🔄 リモート可</span>
+        </div>
+      </a>
+      <a class="job-card fade-in" style="transition-delay:.3s" href="https://job.persona-ats.com/ja/wits/jobs/03cbb9ee-7a5d-4a53-a422-0d9cc62f2f11" target="_blank" rel="noopener">
+        <div class="job-arrow">→</div>
+        <div class="job-tag tag-green">エンジニア</div>
+        <h3>SAPコンサルタント <span style="font-size:.8rem;font-weight:600;color:var(--muted);">大阪</span></h3>
+        <p>SAP導入・運用支援を通じて、企業の業務改善やDX推進に携わることができます。</p>
+        <div class="job-meta">
+          <span>🏢 大阪事業本部</span>
+          <span>💼 正社員・契約社員・業務委託</span>
+          <span>🔄 リモート可</span>
+          <span>✨ 急募</span>
+        </div>
+      </a>
+      <a class="job-card fade-in" style="transition-delay:.35s" href="https://job.persona-ats.com/ja/wits/jobs/a42af60c-315a-4e0c-8f4b-687c80ed7c9e" target="_blank" rel="noopener">
+        <div class="job-arrow">→</div>
+        <div class="job-tag tag-green">エンジニア</div>
+        <h3>SAPコンサルタント <span style="font-size:.8rem;font-weight:600;color:var(--muted);">東京</span></h3>
+        <p>SAP導入・運用支援を通じて、企業の業務改善やDX推進に携わることができます。</p>
+        <div class="job-meta">
+          <span>🏢 東京事業本部</span>
+          <span>💼 正社員・契約社員・業務委託</span>
+          <span>🔄 リモート可</span>
+          <span>✨ 急募</span>
+        </div>
+      </a>
+      <a class="job-card fade-in" style="transition-delay:.4s" href="https://job.persona-ats.com/ja/wits/jobs/8b97e3dc-e1a1-4acd-9331-b0de2f932b66" target="_blank" rel="noopener">
+        <div class="job-arrow">→</div>
+        <div class="job-tag tag-green">エンジニア</div>
+        <h3>機械CADエンジニア</h3>
+        <p>構想設計から詳細設計まで、ものづくりの中核となる機械設計業務に携わることができます。</p>
+        <div class="job-meta">
+          <span>🏢 大阪事業本部</span>
+          <span>💼 契約社員</span>
+        </div>
+      </a>
+      <a class="job-card fade-in" style="transition-delay:.5s" href="https://job.persona-ats.com/ja/wits/jobs/3dd5f796-46c5-4127-b063-00358237267d" target="_blank" rel="noopener">
+        <div class="job-arrow">→</div>
+        <div class="job-tag tag-green">エンジニア</div>
+        <h3>電気制御エンジニア</h3>
+        <p>PLC制御や制御盤設計を中心に、設備の立ち上げや調整まで幅広く携わることができます。</p>
+        <div class="job-meta">
+          <span>🏢 大阪事業本部</span>
+          <span>💼 契約社員</span>
+        </div>
+      </a>
+      <a class="job-card fade-in" style="transition-delay:.6s" href="https://job.persona-ats.com/ja/wits/jobs/989dd0a1-14b9-4f39-8112-3c53e045f7bb" target="_blank" rel="noopener">
+        <div class="job-arrow">→</div>
+        <div class="job-tag tag-sky">営業</div>
+        <h3>営業</h3>
+        <p>新規開拓から既存顧客フォロー、エンジニア対応まで幅広く経験でき、営業として大きく成長できる環境です。</p>
+        <div class="job-meta">
+          <span>🏢 大阪事業本部</span>
+          <span>💼 正社員</span>
+          <span>🔄 リモート可</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FLOW -->
+<section class="flow-section" id="flow">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">HOW IT WORKS</div>
+      <h2 class="section-title">ご紹介の流れ</h2>
+      <div class="divider"></div>
+      <p class="section-sub">たった5ステップ。難しい手続きは不要です。</p>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step fade-in" style="transition-delay:.1s">
+        <div class="step-num">1</div>
+        <div class="step-icon">💡</div>
+        <h3>候補者を思い浮かべる</h3>
+        <p>友人・知人の中からウィツに合いそうな人をピックアップ</p>
+      </div>
+      <div class="flow-step fade-in" style="transition-delay:.2s">
+        <div class="step-num">2</div>
+        <div class="step-icon">💬</div>
+        <h3>カジュアルに声をかける</h3>
+        <p>まずは例文を参考に転職意欲・興味を確認しましょう</p>
+      </div>
+      <div class="flow-step fade-in" style="transition-delay:.3s">
+        <div class="step-num">3</div>
+        <div class="step-icon">📝</div>
+        <h3>紹介サイトで申し込み</h3>
+        <p>専用の紹介サイトから候補者の情報を入力して送信</p>
+      </div>
+      <div class="flow-step fade-in" style="transition-delay:.4s">
+        <div class="step-num">4</div>
+        <div class="step-icon">🔍</div>
+        <h3>採用担当が選考を進める</h3>
+        <p>採用担当が候補者に直接連絡し、選考をスタートします</p>
+      </div>
+      <div class="flow-step fade-in" style="transition-delay:.5s">
+        <div class="step-num">5</div>
+        <div class="step-icon">🎉</div>
+        <h3>入社・紹介手当金支給</h3>
+        <p>入社・試用期間終了後に紹介者へインセンティブを支給</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="schedule-section" id="schedule">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">SCHEDULE</div>
+      <h2 class="section-title">選考スケジュール</h2>
+      <div class="divider"></div>
+      <p class="section-sub">ご紹介から最短3週間で内定。通常採用より大幅にスピードアップしています。</p>
+    </div>
+    <div class="fade-in" style="overflow-x:auto">
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>STEP</th>
+            <th>フェーズ</th>
+            <th>期間目安</th>
+            <th>内容</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><span class="step-tag green">書類確認</span></td>
+            <td>1〜3日</td>
+            <td>採用担当が経歴書・紹介フォームの内容を確認します</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><span class="step-tag blue">カジュアル面談</span></td>
+            <td>3〜5日</td>
+            <td>30〜45分のオンライン面談（会社説明・質疑応答）</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><span class="step-tag sky">面接</span></td>
+            <td>5〜7日</td>
+            <td>1～2回の面接（スキル・経験・カルチャーフィットの確認）</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><span class="step-tag orange">内定</span></td>
+            <td>1〜3日</td>
+            <td>内定通知書発送、条件提示、入社日確定</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- MESSAGE EXAMPLE -->
+<section class="message-section" id="message">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">MESSAGE EXAMPLE</div>
+      <h2 class="section-title">応募者へ送るメッセージ例</h2>
+      <div class="divider"></div>
+      <p class="section-sub">友人・知人に最初に声をかける際、以下の文面をそのままコピー＆ペーストしてご利用いただけます。相手や状況に合わせて3つのパターンからお選びください。</p>
+    </div>
+
+    <div class="fade-in">
+      <div class="msg-tabs">
+        <button class="msg-tab-btn active" onclick="switchMsg(0)">💬 カジュアルな友人向け</button>
+        <button class="msg-tab-btn" onclick="switchMsg(1)">👔 前職の同僚・ビジネス知人向け</button>
+        <button class="msg-tab-btn" onclick="switchMsg(2)">🔧 転職を迷っている人向け</button>
+      </div>
+
+      <!-- Panel 0 -->
+      <div class="msg-panel active" id="msgPanel0">
+        <div class="message-box">
+          <div class="msg-meta">💬 カジュアルな友人向け｜LINEやDMに最適</div>
+          <div class="message-label">📋 コピーして使えるメッセージ例文</div>
+          <div class="message-body" id="msgText0">久しぶり！
+
+最近、私が働いている会社でメンバー増やしてて、
+ちょうど【<strong>エンジニア／営業などのポジション</strong>】で
+一緒に働ける人探してるんやけど…
+
+もしちょっとでも転職とか気になってたら、
+軽く話聞くだけでもどう？
+
+会社はこんな感じ👇
+HP：https://www.wits.com/jp/
+社員インタビュー：https://note.com/wits_jp/m/mae8d64a032db
+社内イベント：https://note.com/wits_jp/m/m8a5ae791b51f
+
+最初はカジュアルに話聞くだけで全然OKやし、
+転職するかどうかもその後で全然大丈夫👍
+
+気が向いたらで大丈夫やから、興味あったら教えて〜！</div>
+          <button class="message-copy-btn" onclick="copyMessage('msgText0')">
+            📋 メッセージをコピーする
+          </button>
+        </div>
+      </div>
+
+      <!-- Panel 1 -->
+      <div class="msg-panel" id="msgPanel1">
+        <div class="message-box">
+          <div class="msg-meta">👔 前職の同僚・ビジネス知人向け｜メールやSlackに最適</div>
+          <div class="message-label">📋 コピーして使えるメッセージ例文</div>
+          <div class="message-body" id="msgText1">お世話になっております。突然のご連絡失礼いたします。
+
+現在、私が所属している<strong>ウィツ株式会社</strong>にて採用を強化しており、
+【<strong>エンジニア / 営業</strong>】のポジションで新たなメンバーを募集しております。
+
+○○さんのこれまでのご経験やお仕事ぶりを思い出し、
+ぜひ一度ご紹介できればと思い、ご連絡させていただきました。
+
+会社の情報も簡単にご覧いただけます：
+・会社HP：https://www.wits.com/jp/ 
+・社員インタビュー：https://note.com/wits_jp/m/mae8d64a032db
+・部署紹介：https://note.com/wits_jp/m/mbdfbc9be89c5 
+
+まずは30分程度のカジュアルなオンライン面談からスタートできますので、
+転職をご検討中でなくても気軽にお話を聞いていただけると幸いです。
+
+ご興味がございましたら、ぜひ一度ご連絡ください。
+
+何卒よろしくお願いいたします。</div>
+          <button class="message-copy-btn" onclick="copyMessage('msgText1')">
+            📋 メッセージをコピーする
+          </button>
+        </div>
+      </div>
+
+      <!-- Panel 2 -->
+      <div class="msg-panel" id="msgPanel2">
+        <div class="message-box">
+          <div class="msg-meta">🌱 転職を迷っている人向け｜プレッシャーをかけない文面</div>
+          <div class="message-label">📋 コピーして使えるメッセージ例文</div>
+          <div class="message-body" id="msgText2">突然すみません！
+
+最近ふと○○さんのことを思い出して、
+ご連絡させてもらいました。
+
+今、<strong>ウィツ</strong>っていう会社でメンバー募集していて、
+○○さんだったら合いそうだなと思いまして。
+
+もし今のお仕事で
+「ちょっと違う環境も見てみたいな」とかあれば、
+一度軽くお話しできたら嬉しいです！
+
+会社の雰囲気はこちらです👇
+会社HP：https://www.wits.com/jp/
+ウィツ大阪X：https://x.com/wits_osaka
+ウィツ日本note：https://note.com/wits_jp
+
+転職前提でなくても全然大丈夫なので、
+よかったら気軽に教えてください〜！</div>
+          <button class="message-copy-btn" onclick="copyMessage('msgText2')">
+            📋 メッセージをコピーする
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<section class="numbers-section" id="numbers">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">NUMBERS</div>
+      <h2 class="section-title">数字でわかるウィツ大阪</h2>
+      <div class="divider"></div>
+      <p class="section-sub">データで見るウィツ大阪の実力と働きやすさ。</p>
+    </div>
+    <div class="numbers-grid">
+      <div class="number-card fade-in" style="transition-delay:.1s">
+        <div class="big"><span class="count-up" data-target="2003">0</span></div>
+        <div class="num-label">創業年</div>
+        <div class="num-desc">20年以上の実績</div>
+      </div>
+      <div class="number-card fade-in" style="transition-delay:.2s">
+        <div class="big"><span class="count-up" data-target="35.5">0</span><sub>億円</sub></div>
+        <div class="num-label">売上高</div>
+        <div class="num-desc">2025年12月実績</div>
+      </div>
+      <div class="number-card fade-in" style="transition-delay:.3s">
+        <div class="big"><span class="count-up" data-target="284">0</span><sub>名</sub></div>
+        <div class="num-label">従業員数</div>
+        <div class="num-desc">ウィツ日本全体</div>
+      </div>
+      <div class="number-card fade-in" style="transition-delay:.4s">
+        <div class="big"><span class="count-up" data-target="55">0</span><sub>%</sub></div>
+        <div class="num-label">女性管理職割合</div>
+        <div class="num-desc">WITSグループの女性管理職割合</div>
+      </div>
+      <div class="number-card fade-in" style="transition-delay:.5s">
+        <div class="big"><span class="count-up" data-target="42">0</span><sub>％</sub></div>
+        <div class="num-label">リモートワーク率</div>
+        <div class="num-desc">うち約10％はフルリモート勤務</div>
+      </div>
+      <div class="number-card fade-in" style="transition-delay:.6s">
+        <div class="big"><span class="count-up" data-target="77.9">0</span><sub>%</sub></div>
+        <div class="num-label">有給取得率</div>
+        <div class="num-desc">ワークライフバランス◎</div>
+      </div>
+      <div class="number-card fade-in" style="transition-delay:.7s">
+        <div class="big"><span class="count-up" data-target="40">0</span><sub>万円</sub></div>
+        <div class="num-label">社員紹介手当</div>
+        <div class="num-desc">契約社員・フリーランス・職種未経験者の紹介は除く</div>
+      </div>
+      <div class="number-card fade-in" style="transition-delay:.8s">
+        <div class="big"><span class="count-up" data-target="100">0</span><sub>％</sub></div>
+        <div class="num-label">育児休暇取得率</div>
+        <div class="num-desc">2025年社内調査</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EMPLOYEES -->
+<section class="employees-section" id="employees">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">OUR MEMBERS</div>
+      <h2 class="section-title">社員紹介</h2>
+      <div class="divider"></div>
+      <p class="section-sub">ウィツ大阪で活躍するメンバーの声をご紹介します。</p>
+    </div>
+    <div class="emp-grid">
+      <div class="emp-card fade-in" style="transition-delay:.1s">
+        <div class="emp-photo c1">👨🏻‍💻</div>
+        <div class="emp-body">
+          <div class="dept">システム開発部</div>
+          <h3>Tさん</h3>
+          <div class="year">入社15年目 / エンジニア</div>
+          <p>多様な業界のプロジェクトに参画し、上流工程から運用まで幅広く対応しています。現在は部門全体の課題解決や人材育成、マネジメントに注力し、組織と技術力の向上を推進しています。</p>
+          <div class="emp-quote">「挑戦を支え合い、成長し続けられる環境です」</div>
+        </div>
+      </div>
+      <div class="emp-card fade-in" style="transition-delay:.2s">
+        <div class="emp-photo c2">👨🏻‍💻</div>
+        <div class="emp-body">
+          <div class="dept">システム開発部</div>
+          <h3>Kさん</h3>
+          <div class="year">入社15年目 / エンジニア</div>
+          <p>製造・保険・インフラなど幅広い業界のシステム開発に従事。設計から実装・リリースまで一貫して担当しながら、新技術の検証や開発プロセス改善にも主体的に取り組んでいます。自社内開発ならではの裁量の大きさを活かし、チームで試行錯誤しながらより良いシステムづくりを追求しています。</p>
+          <div class="emp-quote">「自分のアイデアを形にしながら、納得できる開発に向き合える環境です」</div>
+        </div>
+      </div>
+      <div class="emp-card fade-in" style="transition-delay:.3s">
+        <div class="emp-photo c3">👨🏻‍💻</div>
+        <div class="emp-body">
+          <div class="dept">システム開発部</div>
+          <h3>Tさん</h3>
+          <div class="year">入社15年目 / エンジニア</div>
+          <p>プレイングマネージャーとして組織運営とプロジェクトを両立。販売・生産管理システムを中心に、要件定義から導入・運用まで一貫してリードし、技術とビジネスの両面から最適なシステム構築を推進しています。</p>
+          <div class="emp-quote">「上流から現場まで関わり、価値あるシステム提供にこだわっています」</div>
+        </div>
+      </div>
+      <div class="emp-card fade-in" style="transition-delay:.4s">
+        <div class="emp-photo c4">👨🏻‍💼</div>
+        <div class="emp-body">
+          <div class="dept">営業推進部</div>
+          <h3>Kさん</h3>
+          <div class="year">入社7年目 / 営業</div>
+          <p>IT未経験から営業職として入社し、顧客提案や定期フォローをはじめ、開発部門との連携やプロジェクト推進を担当。社内外の関係者と信頼関係を築きながら、課題解決に向けた調整や提案活動に取り組んでいます。</p>
+          <div class="emp-quote">「人との信頼を軸に、チームで価値をつくり上げる仕事です」</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPARTMENTS -->
+<section class="dept-section" id="depts">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">DEPARTMENTS</div>
+      <h2 class="section-title">部署紹介</h2>
+      <div class="divider"></div>
+      <p class="section-sub">ウィツ大阪の5つの部署をご紹介します。カードをクリックすると部署紹介記事（note）を別タブで確認できます。</p>
+    </div>
+    <div class="dept-grid">
+
+      <a class="dept-card fade-in" style="transition-delay:.1s" href="https://note.com/wits_jp/n/ndbbd65199eaf?magazine_key=mbdfbc9be89c5" target="_blank" rel="noopener">
+        <div class="dept-header" style="background:var(--light)">
+          <div class="dept-icon di1">💻</div>
+          <div class="dept-header-text">
+            <h3>システム開発1部</h3>
+            <div class="sub">Development</div>
+          </div>
+          <div class="dept-header-meta">
+            <div class="dept-size">👥 16名</div>
+          </div>
+        </div>
+        <div class="dept-body">
+          <p>通信会社向け案件を中心に、要件定義・導入支援・PMOなどの上流工程から受託開発まで幅広く担当しています。ネットワークやクラウド、生成AIなどの最新技術に触れながら成長できる点が特徴です。</p>
+          <div class="dept-tags">
+            <span>AWS</span><span>サーバレスアーキテクチャ</span><span>クラウド開発</span><span>PMO / 上流工程</span><span>生成AI</span>
+          </div>
+          <div class="dept-fit">
+            <div class="fit-label">✦ こんな人が向いています</div>
+            <ul>
+              <li>最新技術（クラウド・AI）に興味がある方</li>
+              <li>上流工程（要件定義・PMO）にチャレンジしたい方</li>
+              <li>通信・インフラ系のドメイン知識を活かしたい方</li>
+            </ul>
+          </div>
+        </div>
+      </a>
+
+      <a class="dept-card fade-in" style="transition-delay:.2s" href="https://note.com/wits_jp/n/n7569e45a6a03?magazine_key=mbdfbc9be89c5" target="_blank" rel="noopener">
+        <div class="dept-header" style="background:#e8f4fb">
+          <div class="dept-icon di2">💻</div>
+          <div class="dept-header-text">
+            <h3>システム開発2部</h3>
+            <div class="sub">Development</div>
+          </div>
+          <div class="dept-header-meta">
+            <div class="dept-size">👥 25名</div>
+          </div>
+        </div>
+        <div class="dept-body">
+          <p>製造・運輸・金融など幅広い業界のシステム開発に携わり、販売管理・生産管理・金融系システムなど多様なプロジェクトを担当しています。Javaを中心とした開発をベースに、クラウド・ローコード・生成AIなど新しい分野にも積極的に挑戦しています。</p>
+          <div class="dept-tags">
+            <span>Java</span><span>PL/SQL / .Net</span><span>OutSystems / Intra-mart</span><span>Oracle / SQL Server / Postgres / DB2</span><span>ローコード / ノーコード</span>
+          </div>
+          <div class="dept-fit">
+            <div class="fit-label">✦ こんな人が向いています</div>
+            <ul>
+              <li>Javaの開発経験があり、さらにスキルを伸ばしたい方</li>
+              <li>多様な業界・システムに幅広く携わりたい方</li>
+              <li>ローコード開発など新技術も積極的に試したい方</li>
+            </ul>
+          </div>
+        </div>
+      </a>
+
+      <a class="dept-card fade-in" style="transition-delay:.3s" href="https://note.com/wits_jp/n/ne88113a88076?magazine_key=mbdfbc9be89c5" target="_blank" rel="noopener">
+        <div class="dept-header" style="background:#fff8e8">
+          <div class="dept-icon di3">💻</div>
+          <div class="dept-header-text">
+            <h3>システム開発3部</h3>
+            <div class="sub">Development</div>
+          </div>
+          <div class="dept-header-meta">
+            <div class="dept-size">👥 21名</div>
+          </div>
+        </div>
+        <div class="dept-body">
+          <p>電力会社向けのシステム開発を中心に、要件定義から開発・本番移行・運用まで一貫して担当しています。長期的な信頼関係のもと、上流から下流まで幅広いフェーズに関われるのが特徴です。</p>
+          <div class="dept-tags">
+            <span>Java</span><span>Oracle / PostgreSQL</span><span>Spring / Struts</span><span>上流工程</span><span>AI活用 / 自動化</span>
+          </div>
+          <div class="dept-fit">
+            <div class="fit-label">✦ こんな人が向いています</div>
+            <ul>
+              <li>電力・公共インフラ系の安定した案件で働きたい方</li>
+              <li>設計から運用まで一気通貫で経験したい方</li>
+              <li>長期的に顧客と関係を築きながら仕事をしたい方</li>
+            </ul>
+          </div>
+        </div>
+      </a>
+
+      <a class="dept-card fade-in" style="transition-delay:.4s" href="https://note.com/wits_jp/n/nd6b3ff677b7b?magazine_key=mbdfbc9be89c5" target="_blank" rel="noopener">
+        <div class="dept-header" style="background:#f5edfb">
+          <div class="dept-icon di4">💻</div>
+          <div class="dept-header-text">
+            <h3>システム開発4部</h3>
+            <div class="sub">Development</div>
+          </div>
+          <div class="dept-header-meta">
+            <div class="dept-size">👥 28名</div>
+          </div>
+        </div>
+        <div class="dept-body">
+          <p>製造業や食品メーカー向けのプロジェクトを中心に、パッケージ開発や基幹システム刷新、トレーサビリティ改善など幅広く対応しています。Javaを中心とした開発に強みを持ちながら、今後は多様な言語や新規顧客への対応にもチャレンジし、技術領域の拡大を目指しています。</p>
+          <div class="dept-tags">
+            <span>Java</span><span>SQL</span><span>基幹システム</span><span>パッケージ開発</span><span>トレーサビリティ</span><span>アーキテクチャ設計</span>
+          </div>
+          <div class="dept-fit">
+            <div class="fit-label">✦ こんな人が向いています</div>
+            <ul>
+              <li>製造・食品業界の業務知識やSIer経験がある方</li>
+              <li>基幹システムの刷新・パッケージ導入に携わりたい方</li>
+              <li>アーキテクチャ設計など上位スキルを伸ばしたい方</li>
+            </ul>
+          </div>
+        </div>
+      </a>
+
+      <a class="dept-card fade-in" style="transition-delay:.5s" href="https://note.com/wits_jp/n/n5841fcafa16e?magazine_key=mbdfbc9be89c5" target="_blank" rel="noopener">
+        <div class="dept-header" style="background:#e0f7fa">
+          <div class="dept-icon di5">💻</div>
+          <div class="dept-header-text">
+            <h3>ERP事業推進部</h3>
+            <div class="sub">ERP/Consulting</div>
+          </div>
+          <div class="dept-header-meta">
+            <div class="dept-size">👥 22名</div>
+          </div>
+        </div>
+        <div class="dept-body">
+          <p>製造業やエネルギー業界向けに、ERP（SAP・Oracle EBS）の導入・開発・コンサルティングを担当しています。システム開発だけでなく、顧客への提案やプロジェクト推進など、上流から関われるのが特徴です。</p>
+          <div class="dept-tags">
+            <span>SAP</span><span>Oracle EBS</span><span>ERPパッケージ</span><span>コンサルティング</span><span>プロジェクト推進</span><span>ABAP</span>
+          </div>
+          <div class="dept-fit">
+            <div class="fit-label">✦ こんな人が向いています</div>
+            <ul>
+              <li>SAPやOracle EBSの導入・開発経験がある方</li>
+              <li>顧客提案・要件定義などコンサル寄りの仕事をしたい方</li>
+              <li>製造・エネルギー業界のDX推進に興味がある方</li>
+            </ul>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <div class="container">
+    <div class="cta-wrap fade-in">
+      <div class="cta-icon">✉️</div>
+      <h2>さっそく紹介してみよう！</h2>
+      <p>紹介はボタン1つ。専用サイトから候補者の情報を入力するだけで、採用担当が3営業日以内にご連絡します。紹介＝選考確定ではないので、まずは気軽に送ってみてください。</p>
+      <a href="https://www.recruit.persona-ats.com/referral/?client=wits" target="_blank" class="cta-btn">
+        ✉ 社員紹介ページへ進む
+      </a>
+      <div class="cta-notice">※ このボタンは専用の紹介受付サイト（Persona ATS）へ遷移します。</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-logo">
+        WITS <span>Osaka</span>
+        <p>リファラル採用専用ページ</p>
+      </div>
+      <div class="footer-links">
+        <a href="#what">リファラルとは？</a>
+        <a href="#who">どんな人を紹介すれば？</a>
+        <a href="#jobs">募集職種</a>
+        <a href="#flow">紹介の流れ</a>
+        <a href="#schedule">選考スケジュール</a>
+        <a href="#numbers">数字でわかるウィツ</a>
+        <a href="#employees">社員紹介</a>
+        <a href="#depts">部署紹介</a>
+        <a href="https://www.recruit.persona-ats.com/referral/?client=wits" target="_blank">✉ 今すぐ紹介する</a>
+      </div>
+    </div>
+    <div class="footer-copy">
+      &copy; 2026 WITS Osaka. All rights reserved. ｜ このページは社内限定です。外部への共有はご遠慮ください。
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="back-top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ===== SCROLL ANIMATIONS =====
+  const observerOptions = { threshold: 0.15, rootMargin: '0px 0px -50px 0px' };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        entry.target.querySelectorAll('.count-up').forEach(el => startCount(el));
+      }
+    });
+  }, observerOptions);
+  document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => observer.observe(el));
+
+  // ===== PROGRESS BAR =====
+  const progress = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    progress.style.width = (scrollTop / docHeight * 100) + '%';
+    document.getElementById('header').classList.toggle('scrolled', scrollTop > 10);
+    document.getElementById('back-top').classList.toggle('show', scrollTop > 400);
+  });
+
+  // ===== HAMBURGER =====
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open');
+  });
+  function closeMobileNav() {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+  }
+
+  // ===== COUNT UP =====
+  function startCount(el) {
+    if (el.dataset.counted) return;
+    el.dataset.counted = true;
+    const target = parseFloat(el.dataset.target);
+    const isFloat = target % 1 !== 0;
+    const duration = 1800;
+    const step = 16;
+    const totalSteps = duration / step;
+    let current = 0;
+    const increment = target / totalSteps;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        el.textContent = isFloat ? target.toFixed(1) : target.toLocaleString();
+        clearInterval(timer);
+      } else {
+        el.textContent = isFloat ? current.toFixed(1) : Math.floor(current).toLocaleString();
+      }
+    }, step);
+  }
+  window.addEventListener('load', () => {
+    document.querySelectorAll('.hero .count-up').forEach(el => startCount(el));
+  });
+
+  // ===== MESSAGE TABS =====
+  function switchMsg(index) {
+    document.querySelectorAll('.msg-panel').forEach((p, i) => {
+      p.classList.toggle('active', i === index);
+    });
+    document.querySelectorAll('.msg-tab-btn').forEach((b, i) => {
+      b.classList.toggle('active', i === index);
+    });
+  }
+
+  // ===== COPY MESSAGE =====
+  function copyMessage(id) {
+    const el = document.getElementById(id);
+    const text = el.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('✅ メッセージをコピーしました！');
+    }).catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('✅ メッセージをコピーしました！');
+    });
+  }
+
+  // ===== TOAST =====
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  // ===== ACTIVE NAV HIGHLIGHT =====
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.background = '';
+      a.style.color = '';
+      if (a.getAttribute('href') === '#' + current) {
+        if (!a.classList.contains('nav-cta')) {
+          a.style.background = 'var(--light)';
+          a.style.color = 'var(--green)';
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>
